@@ -40,12 +40,20 @@ realgud-loc-pat struct")
 ;; before a command prompt.
 ;;
 ;; Program-location lines look like this:
-;;   > /usr/bin/zonetab2pot.py(15)<module>()
-;; or MS Windows:
-;;   > c:\\mydirectory\\gcd.py(10)<module>
+;; 1 | step_into > break/ok
+;; 1 | file:///usr/Data_2/Programming/drupal-9.0.6/.ht.router.php:27
+;; 
+;; (cmd)
+
+
+;;(rx (+ num) space (literal "|") space
+;;     (literal "file://") (* (or (eval (f-path-separator)) alpha punctuation num))
+;;     (literal ":") (+ num) line-end (* anything) (syntax open-parenthesis) (literal "cmd") (syntax close-parenthesis) )
+
+
 (setf (gethash "loc" realgud:xdebug-pat-hash)
       (make-realgud-loc-pat
-       :regexp "Debugging file://\\(?:/\\|[[:alpha:]]\\|[[:punct:]]\\|[[:digit:]]\\)*[[:space:]]\\s(ID:[[:space:]][[:digit:]]*/\\(?:[[:alpha:]]\\|[[:punct:]]\\)*\\s)"
+       :regexp"*\\(?:[[:digit:]]+[[:space:]]|[[:space:]]file://\\(?:/\\|[[:alpha:]]\\|[[:punct:]]\\|[[:digit:]]\\)*:[[:digit:]]+$\\)[^z-a]*\\s(cmd\\s)"
        :file-group 1
        :line-group 2))
 
