@@ -151,12 +151,17 @@ the xdebug command to use, like 'return'")
 ;; (setf (gethash "delete"           realgud:xdebug-command-hash) "clear %p")
 ;; (setf (gethash "clear"            realgud:xdebug-command-hash) "clear %X:%l")
 ;; Use ‘!’ instead of ‘p’, since ‘p’ only works for expressions, not statements
-(setf (gethash "eval"             realgud:xdebug-command-hash) "eval")
+(setf (gethash "eval"             realgud:xdebug-command-hash) "eval -- \"%s\"")
 (setf (gethash "info-breakpoints" realgud:xdebug-command-hash) "break_list")
+(setf (gethash "info-value" realgud:xdebug-command-hash) "property_get -n %s ")
 
 ;; Unsupported features:
 (setf (gethash "shell" realgud:xdebug-command-hash) "*not-implemented*")
 (setf (gethash "frame" realgud:xdebug-command-hash) "*not-implemented*")
+(setf (gethash "clear"    realgud:xdebug-command-hash) "*not-implemented*")
+(setf (gethash "up"       realgud:xdebug-command-hash) "*not-implemented*")
+(setf (gethash "down"     realgud:xdebug-command-hash) "*not-implemented*")
+
 
 (setf (gethash "xdebug" realgud-command-hash) realgud:xdebug-command-hash)
 
