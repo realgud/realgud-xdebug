@@ -65,9 +65,14 @@ realgud-loc-pat struct")
 ;;  realgud-loc-pat that describes a Python backtrace line.
 ;; (setf (gethash "lang-backtrace" realgud:xdebug-pat-hash)
 ;;       realgud-python-backtrace-loc-pat)
+;; (rx (* anything) (+  (literal "|") space (+ num) (literal ":") space (literal "file://") (* (or (eval (f-path-separator)) alpha punctuation num))
+;; 		     (literal ":") (+ num) (literal ":") space (? (literal "{"))(+ alnum) (? (literal "}")) ))
 
-;; (setf (gethash "debugger-backtrace" realgud:xdebug-pat-hash)
-;;       realgud:python-trepan-backtrace-pat)
+(setf (gethash "debugger-backtrace" realgud:xdebug-pat-hash)
+      (make-realgud-loc-pat
+       :regexp "[^z-a]*\\(?:|[[:space:]][[:digit:]]+:[[:space:]]file://\\(?:/\\|[[:alpha:]]\\|[[:punct:]]\\|[[:digit:]]\\)*:[[:digit:]]+:[[:space:]]{[[:alnum:]]+}\\)+"
+       :file-group 1
+       :line-group 2))
 
 ;;  realgud-loc-pat that describes a line a Python "info break" line.
 ;; For example:
@@ -141,7 +146,7 @@ the xdebug command to use, like 'return'")
 
 ;; Mappings between xdebug-specific names and GUD names
 (setf (gethash "kill"             realgud:xdebug-command-hash) "stop")
-(setf (gethash "debugger-backtrace" realgud:xdebug-command-hash) "stack_get")
+(setf (gethash "backtrace" realgud:xdebug-command-hash) "stack_get")
 (setf (gethash "continue"        realgud:xdebug-command-hash) "run")
 (setf (gethash "next"        realgud:xdebug-command-hash) "step_over")
 (setf (gethash "step"        realgud:xdebug-command-hash) "step_into")
