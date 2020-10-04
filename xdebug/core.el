@@ -41,31 +41,9 @@
   )
 
 (defun xdebug-parse-cmd-args (orig-args)
-  "Parse command line ORIG-ARGS for the annotate level and name of script to debug.
+  ""
+  (list "/home/fermin/Programming/drupal-9.0.6/dbgpClient" "-1" nil))
 
-ORIG-ARGS should contain a tokenized list of the command line to run.
-
-We return the a list containing:
-* the command processor (e.g. python) and it's arguments if any - a list of strings
-* the name of the debugger given (e.g. xdebug) and its arguments - a list of strings
-* the script name and its arguments - list of strings
-* whether the annotate or emacs option was given ('-A', '--annotate' or '--emacs) - a boolean
-
-For example for the following input:
-  (map 'list 'symbol-name
-   '(python2.6 -O -Qold ./gcd.py a b))
-
-we might return:
-   ((\"python2.6\" \"-O\" \"-Qold\") (\"xdebug\") (\"/tmp/gcd.py\" \"a\" \"b\") nil)
-
-Note that the script name path has been expanded via `expand-file-name'.
-"
-
-  ;; Parse the following kind of pattern:
-  ;;  [python python-options] xdebug xdebug-options script-name script-options
-  (list "/home/fermin/Programming/drupal-9.0.6/dbgpClient" nil nil))
-
-;; To silence Warning: reference to free variable
 (defvar realgud--xdebug-command-name)
 
 (defun xdebug-suggest-invocation (debugger-name)
