@@ -69,4 +69,4 @@ breakpoints, etc.)."
   (interactive)
   (customize-group 'realgud--xdebug))
 
-(provide-me "realgud--xdebug-")
+(provide-me "realgud:xdebug-")

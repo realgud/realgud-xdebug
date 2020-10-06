@@ -30,6 +30,8 @@
 backtrace, prompt, etc.  The values of a hash entry is a
 realgud-loc-pat struct")
 
+;; (defconst realgud:xdebug-debugger-name "realgud:xdebug" "Name of debugger")
+
 (declare-function make-realgud-loc 'realgud-loc)
 
 ;; -------------------------------------------------------------------
@@ -49,6 +51,7 @@ realgud-loc-pat struct")
 ;;(rx (+ num) space (literal "|") space
 ;;     (literal "file://") (* (or (eval (f-path-separator)) alpha punctuation num))
 ;;     (literal ":") (+ num) line-end (* anything) (syntax open-parenthesis) (literal "cmd") (syntax close-parenthesis) )
+
 
 
 (setf (gethash "loc" realgud:xdebug-pat-hash)
@@ -77,21 +80,23 @@ realgud-loc-pat struct")
 ;;  realgud-loc-pat that describes a line a Python "info break" line.
 ;; For example:
 ;; 1   breakpoint    keep y   at /usr/local/bin/trepan3k:7
-;; (setf (gethash "debugger-breakpoint" realgud:xdebug-pat-hash)
-;;       (make-realgud-loc-pat
-;;        :regexp (format "^breakpoint_set -t line -f file://+\\(.+\\) -n %s"
-;; 		       realgud:regexp-captured-num)
-;;        :num 1
-;;        :string 1
-;;        :line-group 2
-;;        :file-group 1))
+;; (rx (* anything) (literal "|") space (literal "file://") (* (or (eval (f-path-separator)) alpha punctuation num))
+;;     (literal ":") (+ num)  )
+(setf (gethash "debugger-breakpoint" realgud:xdebug-pat-hash)
+      (make-realgud-loc-pat
+       :regexp (format "^[[:digit:]]+[[:space:]]|[[:space:]]file://\\(?:/\\|[[:alpha:]]\\|[[:punct:]]\\|[[:digit:]]\\)*:%s"
+		       realgud:regexp-captured-num)
+       :num 1
+       :string 1
+       :line-group 2
+       :file-group 1))
 
 
 ;;  realgud-loc-pat that describes a "breakpoint set" line. For example:
 ;;     Breakpoint 1 at /usr/bin/xdebug:7
 (setf (gethash "brkpt-set" realgud:xdebug-pat-hash)
       (make-realgud-loc-pat
-       :regexp "^breakpoint_set -t line -f file://+\\(.+\\) -n \\([0-9]+\\)"
+       :regexp "breakpoint_set -t line -f file://+\\(/.+\\) -n \\([0-9]+\\)"
        :num 1
        :file-group 1
        :line-group 2))
@@ -111,8 +116,8 @@ realgud-loc-pat struct")
 	 (4 font-lock-function-name-face nil t))     ; t means optional.
 
 	;; Parameter sequence, E.g. gcd(a=3, b=5)
-	;;                             ^^^^^^^^^
-	("(\\(.+\\))"
+	;;       (rx (literal "$") (+ alnum) )                      ^^^^^^^^^
+	("\\$[[:alnum:]]+"
 	 (1 font-lock-variable-name-face))
 
 	;; File name. E.g  file '/test/gcd.py'
@@ -127,7 +132,7 @@ realgud-loc-pat struct")
 
 	;; Line number. E.g. at line 28
         ;;                  ---------^^
-	(":\\([0-9]+\\)$"
+	(":\\([0-9]+\\)?:"
 	 (1 realgud-line-number-face))
 
 	;; Function name.
@@ -151,6 +156,7 @@ the xdebug command to use, like 'return'")
 (setf (gethash "next"        realgud:xdebug-command-hash) "step_over")
 (setf (gethash "step"        realgud:xdebug-command-hash) "step_into")
 (setf (gethash "finish"           realgud:xdebug-command-hash) "step_out")
+(setf (gethash "break"           realgud:xdebug-command-hash) "breakpoint_set -t line -f file://%X -n %l")
 
 ;; Clear in Python does both the usual “delete” and “clear”
 ;; (setf (gethash "delete"           realgud:xdebug-command-hash) "clear %p")
@@ -168,6 +174,8 @@ the xdebug command to use, like 'return'")
 (setf (gethash "down"     realgud:xdebug-command-hash) "*not-implemented*")
 
 
+(setf (gethash "xdebug" realgud:variable-basename-hash) "realgud:xdebug")
+
 (setf (gethash "xdebug" realgud-command-hash) realgud:xdebug-command-hash)
 
-(provide-me "realgud--xdebug-")
+(provide-me "realgud:xdebug-")

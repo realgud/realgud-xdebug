@@ -20,7 +20,7 @@
 (require 'load-relative)
 
 (require 'realgud)
-(require-relative-list '("core" "track-mode") "realgud--xdebug-")
+(require-relative-list '("core" "track-mode") "realgud:xdebug-")
 
 ;; This is needed, or at least the docstring part of it is needed to
 ;; get the customization menu to work in Emacs 24.
@@ -45,9 +45,10 @@ This should be an executable on your path, or an absolute file name."
 ;; The end.
 ;;
 
-(declare-function xdebug-track-mode       'realgud:xdebug-track)
+(declare-function realgud:xdebug-track-mode       'realgud:xdebug-track-mode)
 (declare-function xdebug-query-cmdline    'realgud:xdebug-core)
 (declare-function xdebug-parse-cmd-args   'realgud:xdebug-core)
+(declare-function realgud:run-process        'realgud-core)
 (declare-function realgud:run-debugger 'realgud:run)
 
 ;;;###autoload

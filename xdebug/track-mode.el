@@ -22,31 +22,27 @@
 (require 'realgud)
 (require 'load-relative)
 
-(require-relative-list '("core" "init") "realgud--xdebug-")
+(require-relative-list '("core" "init") "realgud:xdebug-")
 
-(realgud-track-mode-vars "xdebug")
+(realgud-track-mode-vars "realgud:xdebug")
 
 (declare-function realgud-track-mode 'realgud-track-mode)
 (declare-function realgud-track-mode-setup 'realgud-track-mode)
+(declare-function realgud:track-mode-hook 'realgud-track-mode)
 (declare-function realgud:track-set-debugger 'realgud-track-mode)
-(declare-function realgud-python-populate-command-keys 'realgud-lang-python)
-(declare-function realgud:xdebug-completion-at-point 'realgud:xdebug-core)
 
-(realgud-python-populate-command-keys xdebug-track-mode-map)
 
-(defun xdebug-track-mode-hook()
-  (if xdebug-track-mode
+(defun realgud:xdebug-track-mode-hook()
+  (if realgud:xdebug-track-mode
       (progn
-        (use-local-map xdebug-track-mode-map)
-	(realgud:remove-ansi-schmutz)
-        (message "using xdebug mode map"))
+	(use-local-map realgud:xdebug-track-mode-map)
+	(realgud-track-mode-setup 't)
+	(message "using xdebug mode map"))
     (message "xdebug track-mode-hook disable called")
     )
   )
-
-(define-minor-mode xdebug-track-mode
-  "Minor mode for tracking xdebug source locations inside a process shell via realgud. xdebug is a Python debugger based on ipython.
-
+(define-minor-mode realgud:xdebug-track-mode
+  "Minor mode for tracking xdebug source locations inside a process shell via realgud.
 If called interactively with no prefix argument, the mode is toggled. A prefix argument, captured as ARG, enables the mode if the argument is positive, and disables it otherwise.
 
 a process shell.
@@ -58,15 +54,15 @@ a process shell.
   ;; The minor mode bindings.
   :global nil
   :group 'realgud:xdebug
-  :keymap xdebug-track-mode-map
-  (realgud:track-set-debugger "xdebug")
-  (if xdebug-track-mode
+  :keymap realgud:xdebug-track-mode-map
+  (realgud:track-set-debugger "realgud:xdebug")
+  (if realgud:xdebug-track-mode
       (progn
 	(realgud-track-mode-setup 't)
-        (xdebug-track-mode-hook))
+	(realgud:xdebug-track-mode-hook))
     (progn
       (setq realgud-track-mode nil)
       ))
-)
+  )
 
-(provide-me "realgud--xdebug-")
+(provide-me "realgud:xdebug-")
