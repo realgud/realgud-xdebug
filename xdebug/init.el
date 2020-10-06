@@ -48,15 +48,12 @@ realgud-loc-pat struct")
 ;; (cmd)
 
 
-;;(rx (+ num) space (literal "|") space
-;;     (literal "file://") (* (or (eval (f-path-separator)) alpha punctuation num))
+;;(rx (+ num) space (literal "|") space ;;     (literal "file://") (* (or (eval (f-path-separator)) alpha punctuation num))
 ;;     (literal ":") (+ num) line-end (* anything) (syntax open-parenthesis) (literal "cmd") (syntax close-parenthesis) )
-
-
 
 (setf (gethash "loc" realgud:xdebug-pat-hash)
       (make-realgud-loc-pat
-       :regexp"*\\(?:[[:digit:]]+[[:space:]]|[[:space:]]file://\\(?:/\\|[[:alpha:]]\\|[[:punct:]]\\|[[:digit:]]\\)*:[[:digit:]]+$\\)[^z-a]*\\s(cmd\\s)"
+       :regexp"file://\\(\\(?:[a-zA-Z]:\\)?[-a-zA-Z0-9_/.\\\\ ]+\\):\\([0-9]+\\)"
        :file-group 1
        :line-group 2))
 
