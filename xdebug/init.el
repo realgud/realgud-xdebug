@@ -162,6 +162,7 @@ the xdebug command to use, like 'return'")
 (setf (gethash "step"        realgud:xdebug-command-hash) "step_into")
 (setf (gethash "finish"           realgud:xdebug-command-hash) "step_out")
 (setf (gethash "break"           realgud:xdebug-command-hash) "breakpoint_set -t line -f file://%X -n %l")
+(setf (gethash "delete"   realgud:xdebug-command-hash) "breakpoint_remove -d %p")
 
 ;; Clear in Python does both the usual “delete” and “clear”
 ;; (setf (gethash "delete"           realgud:xdebug-command-hash) "clear %p")
