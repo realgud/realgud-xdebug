@@ -91,12 +91,20 @@ realgud-loc-pat struct")
 
 ;;  realgud-loc-pat that describes a "breakpoint set" line. For example:
 ;;     Breakpoint 1 at /usr/bin/xdebug:7
+;; (rx anything (literal "breakpoint_set") space (literal "-t line -f") space
+;;  ;this line it's not the same (literal "file://") (* (or (eval (f-path-separator)) alpha punctuation num))
+;;     space (literal "-n") space (+ num) (* anything) 
+;;     (+ num) space (literal "|") space (literal "breakpoint_set") anything
+;;     (+ num) space (literal "|") space (literal "Breakpoint") space (literal "set") space
+;;     (literal "with") space (literal "ID") space (+ num) eol)
+;; 
 (setf (gethash "brkpt-set" realgud:xdebug-pat-hash)
       (make-realgud-loc-pat
-       :regexp "breakpoint_set -t line -f file://+\\(/.+\\) -n \\([0-9]+\\)"
-       :num 1
+       :regexp (format "[^z-a]breakpoint_set[[:space:]]-t line -f[[:space:]]file://\\(\\(?:[a-zA-Z]:\\)?[-a-zA-Z0-9_/.\\\\ ]+\\)*[[:space:]]-n[[:space:]]%s[^z-a]*[[:digit:]]+[[:space:]]|[[:space:]]breakpoint_set[^z-a][[:digit:]]+[[:space:]]|[[:space:]]Breakpoint[[:space:]]set[[:space:]]with[[:space:]]ID[[:space:]]%s$"
+		       realgud:regexp-captured-num realgud:regexp-captured-num)
        :file-group 1
-       :line-group 2))
+       :line-group 2
+       :num 3))
 
 ;; realgud-loc-pat that describes a "delete breakpoint" line
 ;; Python 3 includes a file name and line number; Python 2 doesn't
