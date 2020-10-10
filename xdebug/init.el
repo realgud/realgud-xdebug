@@ -151,37 +151,30 @@ realgud-loc-pat struct")
 (setf (gethash "xdebug" realgud-pat-hash) realgud:xdebug-pat-hash)
 
 (defvar realgud:xdebug-command-hash (make-hash-table :test 'equal)
-  "Hash key is command name like 'finish' and the value is
-the xdebug command to use, like 'return'")
+  "Pair value-xdebug command.")
 
-;; Mappings between xdebug-specific names and GUD names
-(setf (gethash "kill"             realgud:xdebug-command-hash) "stop")
-(setf (gethash "backtrace" realgud:xdebug-command-hash) "stack_get")
-(setf (gethash "continue"        realgud:xdebug-command-hash) "run")
-(setf (gethash "next"        realgud:xdebug-command-hash) "step_over")
-(setf (gethash "step"        realgud:xdebug-command-hash) "step_into")
-(setf (gethash "finish"           realgud:xdebug-command-hash) "step_out")
-(setf (gethash "break"           realgud:xdebug-command-hash) "breakpoint_set -t line -f file://%X -n %l")
-(setf (gethash "delete"   realgud:xdebug-command-hash) "breakpoint_remove -d %p")
-
-;; Clear in Python does both the usual “delete” and “clear”
-;; (setf (gethash "delete"           realgud:xdebug-command-hash) "clear %p")
-;; (setf (gethash "clear"            realgud:xdebug-command-hash) "clear %X:%l")
-;; Use ‘!’ instead of ‘p’, since ‘p’ only works for expressions, not statements
-(setf (gethash "eval"             realgud:xdebug-command-hash) "eval -- \"%s\"")
-(setf (gethash "info-breakpoints" realgud:xdebug-command-hash) "break_list")
-(setf (gethash "info-value" realgud:xdebug-command-hash) "property_get -n %s ")
+;; Supported features
+(setf (gethash "kill"             realgud:xdebug-command-hash) "stop"
+      (gethash "quit"      realgud:xdebug-command-hash) "detach"
+      (gethash "backtrace" realgud:xdebug-command-hash) "stack_get"
+      (gethash "continue"        realgud:xdebug-command-hash) "run"
+      (gethash "next"        realgud:xdebug-command-hash) "step_over"
+      (gethash "step"        realgud:xdebug-command-hash) "step_into"
+      (gethash "finish"           realgud:xdebug-command-hash) "step_out"
+      (gethash "break"           realgud:xdebug-command-hash) "breakpoint_set -t line -f file://%X -n %l"
+      (gethash "delete"   realgud:xdebug-command-hash) "breakpoint_remove -d %p"
+      (gethash "eval"             realgud:xdebug-command-hash) "property_get -n %s"
+      (gethash "info-breakpoints" realgud:xdebug-command-hash) "breakpoint_list")
 
 ;; Unsupported features:
-(setf (gethash "shell" realgud:xdebug-command-hash) "*not-implemented*")
-(setf (gethash "frame" realgud:xdebug-command-hash) "*not-implemented*")
-(setf (gethash "clear"    realgud:xdebug-command-hash) "*not-implemented*")
-(setf (gethash "up"       realgud:xdebug-command-hash) "*not-implemented*")
-(setf (gethash "down"     realgud:xdebug-command-hash) "*not-implemented*")
+(setf (gethash "shell" realgud:xdebug-command-hash) "*not-implemented*"
+      (gethash "frame" realgud:xdebug-command-hash) "*not-implemented*"
+      (gethash "clear"    realgud:xdebug-command-hash) "*not-implemented*"
+      (gethash "up"       realgud:xdebug-command-hash) "*not-implemented*"
+      (gethash "down"     realgud:xdebug-command-hash) "*not-implemented*")
 
 
 (setf (gethash "xdebug" realgud:variable-basename-hash) "realgud:xdebug")
-
 (setf (gethash "xdebug" realgud-command-hash) realgud:xdebug-command-hash)
 
 (provide-me "realgud:xdebug-")
