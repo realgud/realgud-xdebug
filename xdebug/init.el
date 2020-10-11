@@ -157,6 +157,7 @@ realgud-loc-pat struct")
 (setf (gethash "shell" realgud:xdebug-command-hash) "*not-implemented*"
       (gethash "frame" realgud:xdebug-command-hash) "*not-implemented*"
       (gethash "clear"    realgud:xdebug-command-hash) "*not-implemented*"
+      (gethash "jump"    realgud:xdebug-command-hash) "*not-implemented*"
       (gethash "up"       realgud:xdebug-command-hash) "*not-implemented*"
       (gethash "down"     realgud:xdebug-command-hash) "*not-implemented*")
 
