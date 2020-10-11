@@ -1,7 +1,6 @@
 ;; Copyright (C) 2016, 2018-2019 Free Software Foundation, Inc
 
-;; Author: Rocky Bernstein <rocky@gnu.org>
-;; Author: Sean Farley <sean@farley.io>
+;; Author: Fermin Munoz <fmfs@posteo.net>
 
 ;; This program is free software; you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by
@@ -30,7 +29,6 @@
 backtrace, prompt, etc.  The values of a hash entry is a
 realgud-loc-pat struct")
 
-;; (defconst realgud:xdebug-debugger-name "realgud:xdebug" "Name of debugger")
 
 (declare-function make-realgud-loc 'realgud-loc)
 
@@ -47,10 +45,6 @@ realgud-loc-pat struct")
 ;; 
 ;; (cmd)
 
-
-;;(rx (+ num) space (literal "|") space ;;     (literal "file://") (* (or (eval (f-path-separator)) alpha punctuation num))
-;;     (literal ":") (+ num) line-end (* anything) (syntax open-parenthesis) (literal "cmd") (syntax close-parenthesis) )
-
 (setf (gethash "loc" realgud:xdebug-pat-hash)
       (make-realgud-loc-pat
        :regexp"file://\\(\\(?:[a-zA-Z]:\\)?[-a-zA-Z0-9_/.\\\\ ]+\\):\\([0-9]+\\)"
@@ -59,14 +53,7 @@ realgud-loc-pat struct")
 
 (setf (gethash "prompt" realgud:xdebug-pat-hash)
       (make-realgud-loc-pat
-       :regexp   "^(cmd) "
-       ))
-
-;;  realgud-loc-pat that describes a Python backtrace line.
-;; (setf (gethash "lang-backtrace" realgud:xdebug-pat-hash)
-;;       realgud-python-backtrace-loc-pat)
-;; (rx (* anything) (+  (literal "|") space (+ num) (literal ":") space (literal "file://") (* (or (eval (f-path-separator)) alpha punctuation num))
-;; 		     (literal ":") (+ num) (literal ":") space (? (literal "{"))(+ alnum) (? (literal "}")) ))
+       :regexp   "^(cmd) "))
 
 (setf (gethash "debugger-backtrace" realgud:xdebug-pat-hash)
       (make-realgud-loc-pat
