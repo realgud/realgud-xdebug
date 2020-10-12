@@ -95,9 +95,14 @@ realgud-loc-pat struct")
 
 ;; realgud-loc-pat that describes a "delete breakpoint" line
 ;; Python 3 includes a file name and line number; Python 2 doesn't
+
+;; (rx bol (+ num ) space (literal "|") space (literal "breakpoint_remove")
+;;     eol anything bol (+ num) space (literal "|") space anything space (syntax open-parenthesis)
+;;     (+ num) (syntax close-parenthesis) space (+ num) space (literal "line:") space
+;;     (literal "file://") (* (or (eval (f-path-separator)) alpha punctuation num)) (literal ":") (+ num))
 (setf (gethash "brkpt-del" realgud:xdebug-pat-hash)
       (make-realgud-loc-pat
-       :regexp "^Deleted breakpoint \\([0-9]+\\)"
+       :regexp "[^z-a]breakpoint_remove[[:space:]]-d \\(\\([0-9]+ *\\)+\\)$"
        :num 1))
 
 (setf (gethash "font-lock-keywords" realgud:xdebug-pat-hash)
