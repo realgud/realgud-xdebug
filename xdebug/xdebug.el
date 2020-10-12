@@ -51,6 +51,20 @@ This should be an executable on your path, or an absolute file name."
 (declare-function realgud:run-process        'realgud-core)
 (declare-function realgud:run-debugger 'realgud:run)
 
+
+(defun realgud:xdebug-break-line ()
+  "Add a breakpoint in the current line.
+This is a hack, pretty unstable"
+  (interactive)
+  (let* ((debug-proc (get-process "xdebug"))
+	 (command (replace-regexp-in-string "%l" "%d"
+					    (replace-regexp-in-string "%X" "%s" (gethash "break" realgud:xdebug-command-hash))))
+	 (current-line (line-number-at-pos)))
+    (if debug-proc
+	(comint-send-string debug-proc (concat (format command
+						       (buffer-file-name) current-line) "\n") )
+      (message "xdebug process not found."))))
+
 ;;;###autoload
 (defun realgud:xdebug (&optional opt-cmd-line no-reset)
   "Invoke the xdebug Python debugger and start the Emacs user interface.
