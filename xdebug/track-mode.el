@@ -50,8 +50,6 @@ a process shell.
 \\{xdebug-track-mode-map}
 "
   :init-value nil
-  ;; :lighter " xdebug"   ;; mode-line indicator from realgud-track is sufficient.
-  ;; The minor mode bindings.
   :global nil
   :group 'realgud:xdebug
   :keymap realgud:xdebug-track-mode-map
