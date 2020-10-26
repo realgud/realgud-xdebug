@@ -1,7 +1,7 @@
 ;;; realgud-xdebug.el --- Realgud front-end to xdebug  -*- lexical-binding: t -*-
 
-;; Author: Rocky Bernstein <rocky@gnu.org>
-;; Version: 1.0.0
+;; Author: Fermin Munoz <fmfs@posteo.net>
+;; Version: 0.0.1
 ;; Package-Type: multi
 ;; Package-Requires: ((realgud "1.5.0") (load-relative "1.3.1") (emacs "25"))
 ;; URL: https://github.com/realgud/realgud-xdebug
@@ -9,7 +9,7 @@
 
 ;; Copyright (C) 2019, 2020 Free Software Foundation, Inc
 
-;; Author: Rocky Bernstein <rocky@gnu.org>
+;; Author: Fermin Munoz <fmfs@posteo.net>
 
 ;; This program is free software; you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by
@@ -26,8 +26,8 @@
 
 ;;; Commentary:
 
-;; realgud support for the Python xdebug
-;; See https://pypi.org/project/xdebug/
+;; realgud support for the PHP xdebug
+;; See https://xdebug.org/docs/dbgpClient
 
 ;;; Code:
 
