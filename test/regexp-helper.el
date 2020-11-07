@@ -7,7 +7,7 @@
   (defvar helper-loc)
   (defvar helper-tb)
   (defvar prompt-pat)
-)
+  )
 
 (declare-function realgud-loc-pat-regexp 'realgud-backtrace-mode)
 (declare-function realgud-cmdbuf-info-loc-regexp 'realgud-buffer-command)

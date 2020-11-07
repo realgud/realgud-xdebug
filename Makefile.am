@@ -2,7 +2,7 @@
 # These comments before the targets start with #:
 # remake --tasks to shows the targets and the comments
 
-SUBDIRS = ipdb test
+SUBDIRS = xdebug test
 
 GIT2CL ?= git2cl
 RUBY   ?= ruby

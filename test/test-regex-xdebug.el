@@ -41,9 +41,9 @@
 ;; 			    test-text))
 
 (setq test-text
-      "| file:///usr/Data_2/Programming/drupal-9.0.6/.ht.router.php:27")
+      "1 | file:///usr/Data_2/Programming/drupal-9.0.6/.ht.router.php:27")
 (loc-match test-text tb-pat)
-(assert-equal "281"
+(assert-equal "27"
 	      (match-string (realgud-loc-pat-line-group tb-pat)
 			    test-text) "extract line number")
 

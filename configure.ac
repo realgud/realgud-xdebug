@@ -1,6 +1,6 @@
 dnl FIXME: pick up from realgud.el
-AC_INIT(realgud-ipdb, 1.0.0,)
-AC_CONFIG_SRCDIR(ipdb/ipdb.el)
+AC_INIT(realgud-xdebug, 1.0.0,)
+AC_CONFIG_SRCDIR(xdebug/xdebug.el)
 AM_INIT_AUTOMAKE([foreign])
 AM_MAINTAINER_MODE
 
@@ -49,7 +49,7 @@ AM_CONDITIONAL(INSTALL_EMACS_LISP, test "x$lispdir_realgud" != "x")
 
 AC_CONFIG_FILES([Makefile \
                  common.mk \
-		 ipdb/Makefile \
+		 xdebug/Makefile \
 		 test/Makefile \
 		 ])
 AC_OUTPUT

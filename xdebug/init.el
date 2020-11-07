@@ -55,13 +55,15 @@ realgud-loc-pat struct")
       (make-realgud-loc-pat
        :regexp   "^(cmd) "))
 
+;;  realgud-loc-pat that describes a xdebug backtrace line.
 (setf (gethash "debugger-backtrace" realgud:xdebug-pat-hash)
       (make-realgud-loc-pat
-       :regexp "[^z-a]*\\(?:|[[:space:]][[:digit:]]+:[[:space:]]file://\\(?:/\\|[[:alpha:]]\\|[[:punct:]]\\|[[:digit:]]\\)*:[[:digit:]]+:[[:space:]]{[[:alnum:]]+}\\)+"
-       :file-group 1
-       :line-group 2))
+       :regexp "[^z-a][[:digit:]]+ | \\([0-9]+\\):[[:space:]]file://\\(\\(?:[a-zA-Z]\\)?[-a-zA-Z0-9_/.\\\ ]+\\):\\([0-9]+\\)"
+       :num 1
+       :file-group 2
+       :line-group 3))
 
-;;  realgud-loc-pat that describes a line a Python "info break" line.
+;;  realgud-loc-pat that describes a line a xdebug "info break" line.
 ;; For example:
 ;; 1   breakpoint    keep y   at /usr/local/bin/trepan3k:7
 ;; (rx (* anything) (literal "|") space (literal "file://") (* (or (eval (f-path-separator)) alpha punctuation num))
@@ -70,17 +72,16 @@ realgud-loc-pat struct")
       (make-realgud-loc-pat
        :regexp (format "^[[:digit:]]+[[:space:]]|[[:space:]]file://\\(?:/\\|[[:alpha:]]\\|[[:punct:]]\\|[[:digit:]]\\)*:%s"
 		       realgud:regexp-captured-num)
-       :num 1
-       :string 1
+       :file-group 1
        :line-group 2
-       :file-group 1))
+       ))
 
 
 ;;  realgud-loc-pat that describes a "breakpoint set" line. For example:
 ;;     Breakpoint 1 at /usr/bin/xdebug:7
 ;; (rx anything (literal "breakpoint_set") space (literal "-t line -f") space
 ;;  ;this line it's not the same (literal "file://") (* (or (eval (f-path-separator)) alpha punctuation num))
-;;     space (literal "-n") space (+ num) (* anything) 
+;;     space (literal "-n") space (+ num) (* anything)
 ;;     (+ num) space (literal "|") space (literal "breakpoint_set") anything
 ;;     (+ num) space (literal "|") space (literal "Breakpoint") space (literal "set") space
 ;;     (literal "with") space (literal "ID") space (+ num) eol)
@@ -134,8 +135,7 @@ realgud-loc-pat struct")
 
 	;; Function name.
 	("{\\([a-zA-Z_][a-zA-Z0-9_]*\\)}"
-	 (1 font-lock-type-face)
-	 (2 font-lock-function-name-face))
+	 (1 font-lock-function-name-face))
 	;; (xdebug-frames-match-current-line
 	;;  (0 xdebug-frames-current-frame-face append))
 	))

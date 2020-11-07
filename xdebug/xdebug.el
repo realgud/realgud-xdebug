@@ -1,7 +1,6 @@
 ;; Copyright (C) 2016, 2019 Free Software Foundation, Inc
 
-;; Author: Rocky Bernstein <rocky@gnu.org>
-;; Author: Sean Farley <sean@farley.io>
+;; Author: Fermin Munoz <fmfs@posteo.net>
 
 ;; This program is free software; you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by
