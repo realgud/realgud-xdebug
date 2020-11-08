@@ -40,7 +40,7 @@ check-short:
 
 #: Run all tests without and show just the failure lines
 check-terse:
-	$(MAKE) check 2>&1  | $(RUBY) tes/make-check-filter.rb | grep failure
+	$(MAKE) check 2>&1  | $(RUBY) test/make-check-filter.rb | grep failure
 
 #: Run "make install" non-verbosely
 install-short:
