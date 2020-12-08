@@ -1,4 +1,4 @@
-;; Copyright (C) 2016, 2019 Free Software Foundation, Inc
+;;; xdebug.el --- xdebug Emacs interface  -*- lexical-binding: t; -*-
 
 ;; Author: Fermin Munoz <fmfs@posteo.net>
 
@@ -15,10 +15,15 @@
 ;; You should have received a copy of the GNU General Public License
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+;;; Commentary:
 ;;  `xdebug' Main interface to xdebug via Emacs
-(require 'load-relative)
 
+;;; Code:
+
+;;;; The requires
+(require 'load-relative)
 (require 'realgud)
+
 (require-relative-list '("core" "track-mode") "realgud:xdebug-")
 
 ;; This is needed, or at least the docstring part of it is needed to
@@ -66,33 +71,28 @@ This is a hack, pretty unstable"
 
 ;;;###autoload
 (defun realgud:xdebug (&optional opt-cmd-line no-reset)
-  "Invoke the xdebug Python debugger and start the Emacs user interface.
-
-String OPT-CMD-LINE specifies how to run xdebug. You will be prompted
-for a command line is one isn't supplied.
+  "Invoke the xdebug PHP debugger and start the Emacs user interface.
+String OPT-CMD-LINE specifies how to run xdebug.  You will be
+prompted for a command line is one isn't supplied.
 
 OPT-COMMAND-LINE is treated like a shell string; arguments are
-tokenized by `split-string-and-unquote'. The tokenized string is
+tokenized by `split-string-and-unquote'.  The tokenized string is
 parsed by `xdebug-parse-cmd-args' and path elements found by that
 are expanded using `realgud:expand-file-name-if-exists'.
 
 Normally, command buffers are reused when the same debugger is
-reinvoked inside a command buffer with a similar command. If we
+reinvoked inside a command buffer with a similar command.  If we
 discover that the buffer has prior command-buffer information and
 NO-RESET is nil, then that information which may point into other
 buffers and source buffers which may contain marks and fringe or
-marginal icons is reset. See `loc-changes-clear-buffer' to clear
-fringe and marginal icons.
-"
+marginal icons is reset.
+See `loc-changes-clear-buffer' to clear fringe and marginal icons."
   (interactive)
   (let ((cmd-buf (realgud:run-debugger "xdebug" 'xdebug-query-cmdline
                                        'xdebug-parse-cmd-args
                                        'realgud--xdebug-minibuffer-history
-                                       nil))
-        )
-    cmd-buf)
-  )
-
+                                       nil)))
+    cmd-buf))
 
 
 ;;;###autoload
