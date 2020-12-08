@@ -1,4 +1,4 @@
-;; Copyright (C) 2016, 2018-2019 Free Software Foundation, Inc
+;;; init.el --- init file for xdebug Emacs interface  -*- lexical-binding: t; -*-
 
 ;; Author: Fermin Munoz <fmfs@posteo.net>
 
@@ -14,7 +14,13 @@
 
 ;; You should have received a copy of the GNU General Public License
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
-;; ipdb: "interactive" debugger extension to Python debugger pdb
+
+;;; Commentary:
+;; xdebug: "interactive" debugger extension to PHP debugger xdebug
+
+;;; Code:
+
+;;;; The requires
 
 (eval-when-compile (require 'cl-lib))   ;For setf.
 

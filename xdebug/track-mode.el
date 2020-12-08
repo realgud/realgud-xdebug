@@ -1,7 +1,6 @@
-;; Copyright (C) 2016, 2018, 2019 Free Software Foundation, Inc
+;;; track-mode.el --- tack-mode for realgud-xdebug  -*- lexical-binding: t; -*-
 
-;; Author: Rocky Bernstein <rocky@gnu.org>
-;; Author: Sean Farley <sean@farley.io>
+;; Author: Fermin Munoz <fmfs@posteo.net>
 
 ;; This program is free software; you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by
@@ -15,8 +14,13 @@
 
 ;; You should have received a copy of the GNU General Public License
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
-;; Python "xdebug" Debugger tracking a comint buffer.
 
+;;; Commentary:
+;; PHP "xdebug" Debugger tracking a comint buffer.
+
+;;; Code:
+
+;;;; The requires
 (eval-when-compile (require 'cl-lib))
 
 (require 'realgud)
@@ -33,22 +37,19 @@
 
 
 (defun realgud:xdebug-track-mode-hook()
+  "Hook for `xdebug-track-mode'."
   (if realgud:xdebug-track-mode
       (progn
 	(use-local-map realgud:xdebug-track-mode-map)
 	(realgud-track-mode-setup 't)
 	(message "using xdebug mode map"))
-    (message "xdebug track-mode-hook disable called")
-    )
-  )
+    (message "xdebug track-mode-hook disable called")))
+
 (define-minor-mode realgud:xdebug-track-mode
-  "Minor mode for tracking xdebug source locations inside a process shell via realgud.
-If called interactively with no prefix argument, the mode is toggled. A prefix argument, captured as ARG, enables the mode if the argument is positive, and disables it otherwise.
-
-a process shell.
-
-\\{xdebug-track-mode-map}
-"
+  "Minor mode for tracking xdebug source locations inside a process
+shell via `realgud.  If called interactively with no prefix argument,
+the mode is toggled. A prefix argument, captured as ARG, enables the
+mode if the argument is positive, and disables it otherwise."
   :init-value nil
   :global nil
   :group 'realgud:xdebug
@@ -59,8 +60,6 @@ a process shell.
 	(realgud-track-mode-setup 't)
 	(realgud:xdebug-track-mode-hook))
     (progn
-      (setq realgud-track-mode nil)
-      ))
-  )
+      (setq realgud-track-mode nil))))
 
 (provide-me "realgud:xdebug-")
