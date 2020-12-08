@@ -1,0 +1,50 @@
+* realgud-xdebug.el
+
+Realgud [[https://xdebug.org/docs/dbgpClient][xdebug]] interface, it uses the cli debugger [[https://xdebug.org/docs/dbgpClient][dbgpClient]].
+
+   
+
+** Install
+
+*** Source
+    To install, put this repository somewhere in your Emacs load path.
+    
+    #+begin_src emacs-lisp
+    (add-to-list 'load-path "/path/to/realgud-xdebug")
+    #+end_src
+
+
+*** use-pacakge + straight.el
+    This is a configuration example with =use-pacakge= and =straight.el=, it is also
+    my personal configuration:
+
+    #+begin_src emacs-lisp
+       (use-package realgud-xdebug
+	 :straight (realgud-xdebug :fetcher "github"
+				   :repo "realgud/realgud-xdebug"
+				   :files ("realgud-xdebug.el"
+					   ("xdebug" "xdebug/*.el"))))
+    #+end_src
+
+
+** Supported features
+   Some of these features are describe in the [[https://github.com/realgud/realgud#source-window-commands][realgud]] main repository
+
+   + Kill
+   + Backtrace
+   + Continue
+   + Next
+   + Step
+   + Finish
+   + Break
+   + Delete
+   + Eval (this features is still not fully supported by the cli xdebug client)
+   + Info-brekpoints
+
+
+** License
+#+begin_example
+  General Public License Version 3 (GPLv3)
+  Copyright (c) Fermin MF - https://sasanidas.gitlab.io/f-site/
+  https://github.com/realgud/realgud-xdebug/blob/master/LICENSE
+#+end_example
