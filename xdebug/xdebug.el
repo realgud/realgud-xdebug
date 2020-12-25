@@ -40,11 +40,12 @@
 ;;
 
 (defcustom realgud:xdebug-command-name
-  "/home/fermin/Programming/drupal-9.0.6/dbgpClient"
+  "dbgpClient"
   "File name for executing xdebug and command options.
 This should be an executable on your path, or an absolute file name."
   :type 'string
   :group 'realgud:xdebug)
+
 ;; -------------------------------------------------------------------
 ;; The end.
 ;;

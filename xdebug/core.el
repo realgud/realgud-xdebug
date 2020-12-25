@@ -52,7 +52,7 @@
 
 (defun xdebug-parse-cmd-args (orig-args)
   ""
-  (list "/home/fermin/Programming/drupal-9.0.6/dbgpClient" "-1" nil))
+  (list realgud:xdebug-command-name "-1" nil))
 
 (defvar realgud--xdebug-command-name)
 
@@ -61,7 +61,7 @@
 It requires the DEBUGGER-NAME."
   (realgud-suggest-invocation (or realgud--xdebug-command-name debugger-name)
 			      realgud--xdebug-minibuffer-history
-			      "/home/fermin/Programming/drupal-9.0.6/dbgpClient"))
+			      realgud:xdebug-command-name))
 
 (defun xdebug-reset ()
   "Remove debugger's internal buffers (frame,breakpoints, etc.)."
