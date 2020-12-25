@@ -10,7 +10,10 @@ Realgud [[https://xdebug.org/docs/dbgpClient][xdebug]] interface, it uses the cl
     To install, put this repository somewhere in your Emacs load path.
     
     #+begin_src emacs-lisp
-    (add-to-list 'load-path "/path/to/realgud-xdebug")
+      (add-to-list 'load-path "/path/to/realgud-xdebug")
+
+      (setq realgud:xdebug-command-name
+	    "/path/to/dbgpClient")
     #+end_src
 
 
@@ -19,11 +22,13 @@ Realgud [[https://xdebug.org/docs/dbgpClient][xdebug]] interface, it uses the cl
     my personal configuration:
 
     #+begin_src emacs-lisp
-       (use-package realgud-xdebug
-	 :straight (realgud-xdebug :fetcher "github"
-				   :repo "realgud/realgud-xdebug"
-				   :files ("realgud-xdebug.el"
-					   ("xdebug" "xdebug/*.el"))))
+      (use-package realgud-xdebug
+	  :straight (realgud-xdebug :fetcher "github"
+				    :repo "realgud/realgud-xdebug"
+				    :files ("realgud-xdebug.el"
+					    ("xdebug" "xdebug/*.el")))
+	  :config (setq realgud:xdebug-command-name
+			"/path/to/dbgpClient"))
     #+end_src
 
 
