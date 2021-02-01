@@ -39,6 +39,7 @@
   :version "25.1")
 
 (require-relative-list '( "./xdebug/xdebug" ) "realgud-")
+(load-relative "./xdebug/xdebug.el")
 
 (provide-me)
 ;;; realgud-xdebug.el ends here
