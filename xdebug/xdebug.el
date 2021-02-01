@@ -1,6 +1,13 @@
-;;; xdebug.el --- xdebug Emacs interface  -*- lexical-binding: t; -*-
+;;; xdebug.el --- Xdebug realgud interface  -*- lexical-binding: t; -*-
 
 ;; Author: Fermin Munoz <fmfs@posteo.net>
+
+;; Maintainer: Fermin Munoz <fmfs@posteo.net>
+;; Version: 0.7.6
+;; Keywords: tools,debug
+;; URL: https://github.com/realgud/realgud-xdebug
+;; Package-Requires: ((emacs "25.1")(realgud "1.4.5")(load-relative "1.2.0"))
+;; License: GPL-3.0-or-later
 
 ;; This program is free software; you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by
@@ -16,7 +23,7 @@
 ;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 ;;; Commentary:
-;;  `xdebug' Main interface to xdebug via Emacs
+;;  `xdebug' main interface to xdebug via Emacs
 
 ;;; Code:
 
@@ -71,7 +78,7 @@ This is a hack, pretty unstable"
       (message "xdebug process not found."))))
 
 ;;;###autoload
-(defun realgud:xdebug (&optional opt-cmd-line no-reset)
+(defun realgud:xdebug (&optional _opt-cmd-line _no-reset)
   "Invoke the xdebug PHP debugger and start the Emacs user interface.
 String OPT-CMD-LINE specifies how to run xdebug.  You will be
 prompted for a command line is one isn't supplied.
@@ -100,3 +107,5 @@ See `loc-changes-clear-buffer' to clear fringe and marginal icons."
 (defalias 'xdebug 'realgud:xdebug)
 
 (provide-me "realgud-")
+
+;;; xdebug.el ends here
